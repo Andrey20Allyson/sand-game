@@ -7,8 +7,6 @@ if (!canvas)
 
 const screen = new Screen(canvas);
 
-screen.on('frame', (ctx) => {
-    ctx.fillStyle = '#ffffff';
-});
+
 
 screen.start()
