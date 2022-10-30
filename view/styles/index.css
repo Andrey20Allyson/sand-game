@@ -1,0 +1,63 @@
+body {
+    background-color: rgb(40, 39, 58);
+
+    justify-content: center;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.gameScreen {
+    background-color: black;
+
+    border-width: 5px;
+    border-style: inset;
+    border-color: #c0c0c0;
+
+    image-rendering: pixelated;
+
+    width: 420px;
+}
+
+.selectorDiv {
+    background-color: rgb(62, 58, 102);
+
+    margin-left: 10px;
+
+    width: 180px;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    border-width: 5px;
+    border-style: inset;
+    border-color: #c0c0c0;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.selectorButtons {
+    background-color: rgba(0, 0, 0, 0);
+
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: space-around;
+}
+
+.selectorButton {
+    background-color: rgb(71, 64, 64);
+
+    width: 50px;
+    height: 30px;
+
+    margin-top: 10px;
+
+    border-width: 2px;
+    border-style: outset;
+    border-color: #c0c0c0;
+
+    color: aliceblue;
+    font-weight: 600;
+}
