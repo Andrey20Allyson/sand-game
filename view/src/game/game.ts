@@ -60,9 +60,19 @@ export class Game extends EventEmitter {
             let indexVector2 = Vector2.fromString(index);
 
             const downColision = this.particles[new Vector2(0, 1).sum(particle.position).toString()]
+            const rightDownColision = this.particles[new Vector2(1, 1).sum(particle.position).toString()]
+            const leftDownColision = this.particles[new Vector2(-1, 1).sum(particle.position).toString()]
 
             if (particle.position.y + 1 < this.scenarySize.y && !downColision) {
                 particle.position.sum(new Vector2(0, 1));
+            }
+
+            if (downColision && !rightDownColision) {
+                particle.position.sum(new Vector2(1, 1));
+
+            } else if(downColision && !leftDownColision) {
+                particle.position.sum(new Vector2(-1, 1));
+
             }
 
             newParticlesStack[particle.position.toString()] = particle;

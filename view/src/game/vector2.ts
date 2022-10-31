@@ -1,5 +1,5 @@
 export class Vector2 {
-    static vector2RegExp = /^\d+(.\d+){0,1}, \d+(.\d+){0,1}$/;
+    static vector2RegExp = /^-{0,1}\d+(\.\d+){0,1}, -{0,1}\d+(\.\d+){0,1}$/;
     
     x: number;
     y: number;
@@ -10,7 +10,7 @@ export class Vector2 {
     }
 
     toString() {
-        return `${this.x}, ${this.y}`
+        return `${this.x}, ${this.y}`;
     }
 
     sum(value: Vector2): this;
