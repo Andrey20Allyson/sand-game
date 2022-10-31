@@ -105,4 +105,8 @@ export class Vector2 {
 
         return new Vector2(x, y);
     }
+
+    static fromSum(vectorA: Vector2, vectorb: Vector2) {
+        return new Vector2(vectorA.x + vectorb.y, vectorA.y + vectorb.y);
+    }
 }

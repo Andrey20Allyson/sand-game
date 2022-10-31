@@ -3,7 +3,7 @@ import { Particle } from "./particle.js";
 import { Vector2 } from "./vector2.js";
 
 export interface ParticleStack {
-    [k: string]: Particle
+    [k: string]: Particle;
 }
 
 export class Game extends EventEmitter {
@@ -16,7 +16,7 @@ export class Game extends EventEmitter {
     constructor(size: Vector2) {
         super();
 
-        this.tickRate = 3;
+        this.tickRate = 10;
 
         this.gravityForce = new Vector2(0, 1);
 
@@ -56,10 +56,15 @@ export class Game extends EventEmitter {
         const newParticlesStack: ParticleStack = {};
 
         for (let [ index, particle ] of Object.entries(this.particles)) {
-            // particle.velocity.sum(this.gravityForce);
+
             let indexVector2 = Vector2.fromString(index);
 
-            particle.position.sum(new Vector2(0, 1));
+            const downColision = this.particles[new Vector2(0, 1).sum(particle.position).toString()]
+
+            if (particle.position.y + 1 < this.scenarySize.y && !downColision) {
+                particle.position.sum(new Vector2(0, 1));
+            }
+
             newParticlesStack[particle.position.toString()] = particle;
         }
 

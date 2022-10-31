@@ -15,8 +15,6 @@ export class Particle {
     }
 
     render(ctx: CanvasRenderingContext2D) {
-        console.log(ctx);
-        
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(this.position.x, this.position.y, 1, 1);
     }
