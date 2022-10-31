@@ -16,7 +16,7 @@ body {
 
     image-rendering: pixelated;
 
-    width: 420px;
+    width: 640px;
 }
 
 .selectorDiv {
@@ -24,7 +24,7 @@ body {
 
     margin-left: 10px;
 
-    width: 180px;
+    width: 240px;
 
     display: flex;
     flex-wrap: wrap;
@@ -38,9 +38,10 @@ body {
 }
 
 .selectorButtons {
-    background-color: rgba(0, 0, 0, 0);
+    /* background-color: rgb(155, 80, 80); */
 
     display: flex;
+    width: 100%;
     flex-wrap: wrap;
 
     justify-content: space-around;
