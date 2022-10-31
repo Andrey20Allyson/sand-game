@@ -10,9 +10,10 @@ export class Game extends EventEmitter {
     particles: ParticleStack;
     tickRate: number;
     gravityForce: Vector2;
+    scenarySize: Vector2;
     tickHandle: NodeJS.Timer | undefined;
 
-    constructor() {
+    constructor(size: Vector2) {
         super();
 
         this.tickRate = 3;
@@ -20,6 +21,8 @@ export class Game extends EventEmitter {
         this.gravityForce = new Vector2(0, 1);
 
         this.particles = {};
+
+        this.scenarySize = size;
     }
 
     createParticle(x: number, y: number, type: string) {
@@ -50,11 +53,17 @@ export class Game extends EventEmitter {
     }
 
     simulate() {
+        const newParticlesStack: ParticleStack = {};
+
         for (let [ index, particle ] of Object.entries(this.particles)) {
             // particle.velocity.sum(this.gravityForce);
+            let indexVector2 = Vector2.fromString(index);
 
             particle.position.sum(new Vector2(0, 1));
+            newParticlesStack[particle.position.toString()] = particle;
         }
+
+        this.particles = newParticlesStack;
     }
 
     on(event: string, listener: (...args: any[]) => any): this;

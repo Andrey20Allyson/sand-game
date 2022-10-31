@@ -1,5 +1,6 @@
 export class Vector2 {
-    static vector2RegExp = /^[0-9.]+, [0-9.]+$/;
+    static vector2RegExp = /^\d+(.\d+){0,1}, \d+(.\d+){0,1}$/;
+    
     x: number;
     y: number;
 
