@@ -13,5 +13,9 @@ screen.on('frame', (ctx) => {
     game.render(ctx);
 });
 
+screen.on('click', (pos) => {
+    game.createParticle(pos.x, pos.y, '');
+});
+
 screen.start();
 game.start();

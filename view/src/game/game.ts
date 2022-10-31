@@ -23,10 +23,13 @@ export class Game extends EventEmitter {
     }
 
     createParticle(x: number, y: number, type: string) {
+        const pos = new Vector2(x, y);
+        if (this.particles[pos.toString()])
+            return;
+
         const particle = new Particle(this);
 
-        particle.position.x = x;
-        particle.position.y = y;
+        particle.position = pos;
 
         this.particles[particle.position.toString()] = particle;
 
@@ -34,11 +37,12 @@ export class Game extends EventEmitter {
     }
 
     start() {
-        this.tickHandle = setInterval(this.tick.bind(this));
+        this.tickHandle = setInterval(this.tick.bind(this), 1000 / this.tickRate);
     }
 
     tick() {
         this.emit('tick');
+        this.simulate();
     }
 
     render(ctx: CanvasRenderingContext2D) {
@@ -47,9 +51,9 @@ export class Game extends EventEmitter {
 
     simulate() {
         for (let [ index, particle ] of Object.entries(this.particles)) {
-            particle.velocity.sum(this.gravityForce);
+            // particle.velocity.sum(this.gravityForce);
 
-            particle.position.sum(particle.velocity);
+            particle.position.sum(new Vector2(0, 1));
         }
     }
 

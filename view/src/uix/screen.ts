@@ -28,7 +28,8 @@ export class Screen extends EventEmitter {
     }
 
     start() {
-        this.animationFrameHandler = requestAnimationFrame(this.render.bind(this))
+        // this.animationFrameHandler = requestAnimationFrame(this.render.bind(this))
+        setInterval(this.render.bind(this), 1000 / 10);
     }
 
     stop() {
@@ -45,8 +46,6 @@ export class Screen extends EventEmitter {
     render() {
         this.context.fillStyle = '#000000';
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-        console.log(this.context);
 
         this.emit('frame', this.context);
     }
