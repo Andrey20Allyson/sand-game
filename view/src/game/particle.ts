@@ -10,6 +10,8 @@ export class Particle {
         this.position = new Vector2(0, 0);
         this.velocity = new Vector2(0, 0);
         this.game = game;
+
+        this.game.on('frame', this.render.bind(this));
     }
 
     render(ctx: CanvasRenderingContext2D) {

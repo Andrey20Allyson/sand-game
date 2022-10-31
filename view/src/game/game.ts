@@ -9,12 +9,15 @@ export interface ParticleStack {
 export class Game extends EventEmitter {
     particles: ParticleStack;
     tickRate: number;
+    gravityForce: Vector2;
     tickHandle: NodeJS.Timer | undefined;
 
     constructor() {
         super();
 
-        this.tickRate = 35;
+        this.tickRate = 3;
+
+        this.gravityForce = new Vector2(0, 1);
 
         this.particles = {};
     }
@@ -22,24 +25,32 @@ export class Game extends EventEmitter {
     createParticle(x: number, y: number, type: string) {
         const particle = new Particle(this);
 
-        this.on('frame', particle.render.bind(particle));
+        particle.position.x = x;
+        particle.position.y = y;
 
-        particle.position = new Vector2(x, y);
         this.particles[particle.position.toString()] = particle;
 
         return particle;
     }
 
     start() {
-        this.tickHandle = setInterval(this.simulate.bind(this));
+        this.tickHandle = setInterval(this.tick.bind(this));
     }
 
-    simulate() {
-
+    tick() {
+        this.emit('tick');
     }
 
     render(ctx: CanvasRenderingContext2D) {
         this.emit('frame', ctx);
+    }
+
+    simulate() {
+        for (let [ index, particle ] of Object.entries(this.particles)) {
+            particle.velocity.sum(this.gravityForce);
+
+            particle.position.sum(particle.velocity);
+        }
     }
 
     on(event: string, listener: (...args: any[]) => any): this;
