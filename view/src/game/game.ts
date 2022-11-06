@@ -1,5 +1,8 @@
 import { EventEmitter } from "../util/EventEmitter.js";
 import { Particle } from "./particle.js";
+import { Sand } from "./particles/sand.js";
+import { Stone } from "./particles/stone.js";
+import { Water } from "./particles/water.js";
 import { Vector2 } from "./vector2.js";
 
 export interface ParticleStack {
@@ -30,7 +33,7 @@ export class Game extends EventEmitter {
         if (this.particles[pos.toString()])
             return;
 
-        const particle = new Particle(this);
+        const particle = new (Object.values(this.particles).length < 16 ? Stone: Water)(this);
 
         particle.position = pos;
 
@@ -49,36 +52,18 @@ export class Game extends EventEmitter {
     }
 
     render(ctx: CanvasRenderingContext2D) {
-        this.emit('frame', ctx);
+        for (let [ index, particle ] of Object.entries(this.particles)) {
+            particle.render(ctx);
+        }
     }
 
     simulate() {
-        const newParticlesStack: ParticleStack = {};
-
         for (let [ index, particle ] of Object.entries(this.particles)) {
+            particle.move();
 
-            let indexVector2 = Vector2.fromString(index);
-
-            const downColision = this.particles[new Vector2(0, 1).sum(particle.position).toString()]
-            const rightDownColision = this.particles[new Vector2(1, 1).sum(particle.position).toString()]
-            const leftDownColision = this.particles[new Vector2(-1, 1).sum(particle.position).toString()]
-
-            if (particle.position.y + 1 < this.scenarySize.y && !downColision) {
-                particle.position.sum(new Vector2(0, 1));
-            }
-
-            if (downColision && !rightDownColision) {
-                particle.position.sum(new Vector2(1, 1));
-
-            } else if(downColision && !leftDownColision) {
-                particle.position.sum(new Vector2(-1, 1));
-
-            }
-
-            newParticlesStack[particle.position.toString()] = particle;
+            delete this.particles[index];
+            this.particles[particle.position.toString()] = particle;
         }
-
-        this.particles = newParticlesStack;
     }
 
     on(event: string, listener: (...args: any[]) => any): this;

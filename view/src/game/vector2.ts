@@ -106,7 +106,13 @@ export class Vector2 {
         return new Vector2(x, y);
     }
 
-    static fromSum(vectorA: Vector2, vectorb: Vector2) {
-        return new Vector2(vectorA.x + vectorb.y, vectorA.y + vectorb.y);
+    static fromSum(vectorA: Vector2 | [number, number], vectorB: Vector2 | [number, number]) {
+        if (!(vectorA instanceof Vector2))
+            vectorA = new Vector2(...vectorA);
+
+        if (!(vectorB instanceof Vector2))
+            vectorB = new Vector2(...vectorB);
+        
+        return new Vector2(vectorA.x + vectorB.x, vectorA.y + vectorB.y);
     }
 }
