@@ -1,14 +1,17 @@
 import { app, BrowserWindow, Event } from 'electron';
+import path from 'path';
 
 function createWindow() {
     const window = new BrowserWindow({
         width: 1080,
         height: 720,
-        resizable: false
+        resizable: false,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js')
+        }
     });
 
-    window.loadFile('../view/index.html')
-    // window.loadURL('http://localhost:3000');
+    window.loadFile('../view/index.html');
 
     return window;
 }
